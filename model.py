@@ -1,16 +1,16 @@
 import torch
-from torch import nn
+import torch.nn as nn
 
-class RNN(nn.Module):
-    def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim, n_layers, dropout):
-        super().__init__()
-        self.embedding = nn.Embedding(vocab_size, embedding_dim)
-        self.rnn = nn.LSTM(embedding_dim, hidden_dim, num_layers=n_layers, dropout=dropout, batch_first=True)
-        self.fc = nn.Linear(hidden_dim, output_dim)
-        self.dropout = nn.Dropout(dropout)
-        
-    def forward(self, text):
-        embedded = self.dropout(self.embedding(text))
-        output, (hidden, cell) = self.rnn(embedded)
-        prediction = self.fc(self.dropout(hidden[-1]))
-        return prediction
+class BiLSTMClassifier(nn.Module):
+    def __init__(self, embedding_matrix, hidden_dim, num_classes):
+        super(BiLSTMClassifier, self).__init__()
+        self.embedding = nn.Embedding.from_pretrained(torch.FloatTensor(embedding_matrix), freeze=True)
+        self.lstm = nn.LSTM(embedding_matrix.shape[1], hidden_dim, bidirectional=True, batch_first=True)
+        self.fc = nn.Linear(hidden_dim * 2, num_classes)
+
+    def forward(self, x):
+        embedded = self.embedding(x)
+        lstm_out, _ = self.lstm(embedded)
+        avg_pool = torch.mean(lstm_out, dim=1)
+        output = self.fc(avg_pool)
+        return output

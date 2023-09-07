@@ -1,45 +1,20 @@
 import torch
-from preprocess import label_to_id,id_to_label
-from preprocess import Vocabulary
 import mdtex2html
 import gradio as gr
+from predict import init,predict
+from model import BiLSTMClassifier
 
 # 加载模型
 """
 
 """
-vocab = Vocabulary()
-vocab.load_vocabulary()
-
-device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-load_path='./res_model/model_epoch8.pth'
-model=torch.load(load_path,map_location=device)
-model.eval()
-
-id2label=id_to_label()
-
-def text_to_id(text, max_len):
-    text_ids = vocab.text_to_ids(text)
-    lenx = len(text_ids)
-    if lenx < max_len: text_ids += [0 for _ in range(max_len - lenx)]
-    else: text_ids = text_ids[0:max_len]
-    return torch.tensor([text_ids])
-
+init()
 
 # 定义推理函数
 """
 
 """
-def infer(infer_text):
-    inputs=text_to_id(infer_text,20)
-    with torch.no_grad():
-        inputs=inputs.to(device)
-        preds = model(inputs)
-        all_preds=[preds]
-        all_preds = torch.cat(all_preds, dim=0)
-        label_idx=all_preds.argmax(dim=1)
-        infered_label = id2label[int(label_idx)]
-        return infered_label
+infer=predict
 
 # GRADIO
 """
