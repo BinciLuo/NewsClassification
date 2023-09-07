@@ -1,18 +1,16 @@
-INFO:     Started server process [38030]
+INFO:     Started server process [40583]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:27778 (Press CTRL+C to quit)
-[13]
-INFO:     127.0.0.1:49414 - "POST /predict/ HTTP/1.1" 200 OK
-INFO:     Shutting down
-INFO:     Finished server process [38030]
-ERROR:    Traceback (most recent call last):
-  File "/Users/luobinci/miniconda3/envs/intern/lib/python3.11/site-packages/starlette/routing.py", line 686, in lifespan
-    await receive()
-  File "/Users/luobinci/miniconda3/envs/intern/lib/python3.11/site-packages/uvicorn/lifespan/on.py", line 137, in receive
-    return await self.receive_queue.get()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/luobinci/miniconda3/envs/intern/lib/python3.11/asyncio/queues.py", line 158, in get
-    await getter
-asyncio.exceptions.CancelledError
-
+[3]
+INFO:     127.0.0.1:51120 - "POST /predict/ HTTP/1.1" 200 OK
+[3]
+INFO:     127.0.0.1:51126 - "POST /predict/ HTTP/1.1" 200 OK
+[3]
+INFO:     127.0.0.1:51168 - "POST /predict/ HTTP/1.1" 200 OK
+[2]
+INFO:     127.0.0.1:51169 - "POST /predict/ HTTP/1.1" 200 OK
+[2]
+INFO:     127.0.0.1:51170 - "POST /predict/ HTTP/1.1" 200 OK
+[8]
+INFO:     127.0.0.1:51171 - "POST /predict/ HTTP/1.1" 200 OK
