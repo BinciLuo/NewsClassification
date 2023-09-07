@@ -1,19 +1,20 @@
 import torch
 import mdtex2html
 import gradio as gr
+from predict import init,predict
+from model import BiLSTMClassifier
 
 # 加载模型
 """
 
 """
+init()
 
 # 定义推理函数
 """
 
 """
-def infer(infer_text):
-    infered_label=""
-    return infered_label
+infer=predict
 
 # GRADIO
 """
