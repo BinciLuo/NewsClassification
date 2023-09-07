@@ -30,9 +30,6 @@ def predict(text):
 
 # %%
 
-init()
-print(predict('世界杯四强诞生！FIBA第一人出局！美国队迎挑战，最强黑马崛起'))
-
 # %%
 
 
