@@ -67,8 +67,7 @@ with gr.Blocks() as demo:
     with gr.Row():
         with gr.Column(scale=4):
             with gr.Column(scale=12):
-                user_input = gr.Textbox(show_label=False, placeholder="输入新闻标题...", lines=10).style(
-                    container=False)
+                user_input = gr.Textbox(show_label=False, placeholder="输入新闻标题...", lines=10,container=False)
             with gr.Column(min_width=32, scale=1):
                 submitBtn = gr.Button("Submit", variant="primary")
         with gr.Column(scale=1):
@@ -82,4 +81,4 @@ with gr.Blocks() as demo:
 
     emptyBtn.click(reset_state, outputs=[chatbot, history], show_progress=True)
 
-demo.queue().launch(share=False, inbrowser=True, server_name='0.0.0.0',server_port=27777)
+demo.queue().launch(share=False, inbrowser=True, server_name='0.0.0.0',server_port=27777,debug=True)
