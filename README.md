@@ -1,6 +1,16 @@
 # NewsClassification
+## 运行指令
+### 安装环境
+```
+pip install torch fastapi genism scikit-learn uvicorn gradio mdtex2html 
+```
+### 启动服务
+```
+python webui.py
+python api.py
+```
 
-# 如何使用
+## git如何使用
 1. clone到本地 并cd进去
 ```
 git clone https://github.com/BinciLuo/NewsClassification.git
