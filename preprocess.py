@@ -20,7 +20,7 @@ def load_data(data_dir):
         if category_path.endswith(".txt"):
             with open(category_path, "r", encoding="utf-8") as file:
                 lines = file.readlines()
-                lines = [line.strip() for line in lines]
+                lines = [line.split('\t')[-1].strip() for line in lines]
                 data += lines
                 labels += [category[:-4]] * len(lines)
 
@@ -46,10 +46,10 @@ def pickle_load(path):
         return pickle.load(f)
 
 # %%
-def create_vector(train_data, train_labels):
+def create_vector(train_data, train_labels, vector_size):
     sentences = [list(line) for line in train_data]
-    word2vec_model = gensim.models.Word2Vec(sentences, vector_size=100, window=5, min_count=1, sg=0)
-    word2vec_model.wv['<UNK>'] = np.zeros((100))
+    word2vec_model = gensim.models.Word2Vec(sentences, vector_size=vector_size, window=5, min_count=1, sg=0)
+    word2vec_model.wv['<UNK>'] = np.zeros((vector_size))
     embedding_matrix = np.zeros((len(word2vec_model.wv.index_to_key), word2vec_model.vector_size))
     for i, word in enumerate(word2vec_model.wv.index_to_key):
         embedding_matrix[i] = word2vec_model.wv[word]
