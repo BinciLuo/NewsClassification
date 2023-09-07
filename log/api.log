@@ -1,0 +1,18 @@
+INFO:     Started server process [31807]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:27778 (Press CTRL+C to quit)
+Building prefix dict from the default dictionary ...
+Loading model from cache /var/folders/vg/g9c3st7j7fv5mjbpp5gpbr380000gn/T/jieba.cache
+Loading model cost 0.347 seconds.
+Prefix dict has been built successfully.
+看淡指数 继续看高区域题材概念 股票
+INFO:     127.0.0.1:61254 - "POST /predict/ HTTP/1.1" 200 OK
+看淡指数 继续看高区域题材概念 股票
+INFO:     127.0.0.1:61257 - "POST /predict/ HTTP/1.1" 200 OK
+看淡指数 继续看高区域题材概念 股票
+INFO:     127.0.0.1:61260 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [31807]

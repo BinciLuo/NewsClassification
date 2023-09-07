@@ -4,7 +4,10 @@ from preprocess import Vocabulary
 import mdtex2html
 import gradio as gr
 
-# 构建词汇表
+# 加载模型
+"""
+
+"""
 vocab = Vocabulary()
 vocab.load_vocabulary()
 
@@ -22,22 +25,34 @@ def text_to_id(text, max_len):
     else: text_ids = text_ids[0:max_len]
     return torch.tensor([text_ids])
 
-def predict(inputs, chatbot):
-    infer_text=inputs
-    chatbot.append((input, ""))
-    inputs=text_to_id(inputs,20)
+
+# 定义推理函数
+"""
+
+"""
+def infer(infer_text):
+    inputs=text_to_id(infer_text,20)
     with torch.no_grad():
         inputs=inputs.to(device)
         preds = model(inputs)
         all_preds=[preds]
         all_preds = torch.cat(all_preds, dim=0)
-        print(inputs,all_preds)
         label_idx=all_preds.argmax(dim=1)
-        chatbot[-1] = (infer_text,id2label[int(label_idx)])
-        print((infer_text,id2label[int(label_idx)]))       
+        infered_label = id2label[int(label_idx)]
+        return infered_label
 
-        yield chatbot, None
+# GRADIO
+"""
 
+"""
+def chat(inputs, chatbot):
+    infer_text=inputs
+    chatbot.append((input, ""))
+    infered_label = infer(infer_text)
+    chatbot[-1] = (infer_text,infered_label)
+    print(infer_text,infered_label,flush=True)       
+
+    yield chatbot, None
 
 def postprocess(self, y):
     if y is None:
@@ -49,16 +64,13 @@ def postprocess(self, y):
         )
     return y
 
-
 gr.Chatbot.postprocess = postprocess
 
 def reset_user_input():
     return gr.update(value='')
 
-
 def reset_state():
     return [], []
-
 
 with gr.Blocks() as demo:
     gr.HTML("""<h1 align="center">新闻标题文本分类</h1>""")
@@ -75,7 +87,7 @@ with gr.Blocks() as demo:
 
     history = gr.State([])
 
-    submitBtn.click(predict, [user_input, chatbot], [chatbot, history],
+    submitBtn.click(chat, [user_input, chatbot], [chatbot, history],
                     show_progress=True)
     submitBtn.click(reset_user_input, [], [user_input])
 
